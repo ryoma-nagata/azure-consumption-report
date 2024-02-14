@@ -57,6 +57,8 @@ body=$(printf '{
 }' $containerName $storageId $current)
 
 ##############################################################
-echo "PutURL: $PutURL"
-echo $body
+
+# echo "PutURL: $PutURL"
+# echo "body: $body"
+echo "${subscriptionId} のエクスポートを作成します"
 az rest --method put --url "$PutURL" --body "$body"
