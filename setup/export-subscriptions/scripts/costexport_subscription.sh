@@ -18,7 +18,7 @@ baseUrl=https://management.azure.com
 ##############################################################
 # 変数
 exportName=${subscriptionId}_daily
-PutURL=${baseUrl}/subscriptions/${subscriptionId}/providers/Microsoft.CostManagement/exports/${exportName}?api-version=${version}
+targetURL=${baseUrl}/subscriptions/${subscriptionId}/providers/Microsoft.CostManagement/exports/${exportName}?api-version=${version}
 current=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
 
 body=$(printf '{
@@ -57,6 +57,15 @@ body=$(printf '{
 }' $containerName $storageId $current)
 
 ##############################################################
-echo "PutURL: $PutURL"
-echo $body
-az rest --method put --url "$PutURL" --body "$body"
+
+# echo "targetURL: $targetURL"
+# echo "body: $body"
+echo "サブスクリプションID: ${subscriptionId} のエクスポート構成を作成します"
+# 既存のexportを取得して、存在しない場合にputを実行する
+
+resource=$(az rest --method get --url "$targetURL" 2>/dev/null || true) # "get"操作を試みる
+if [ -z "$resource" ]; then
+    az rest --method put --url "$targetURL" --body "$body"
+else
+  echo "このサブスクリプションはすでにエクスポート構成済みです"
+fi
