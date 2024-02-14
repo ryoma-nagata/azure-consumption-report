@@ -1,3 +1,9 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+# set -o xtrace # For debugging
+
 if [ -z "$storage_id" ]
 then
   echo "ストレージのリソースIDを入力してください:"
