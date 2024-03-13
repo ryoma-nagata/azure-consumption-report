@@ -37,3 +37,6 @@ do
     CHECK_EXECUTE_OVERWRITE=$check_execute_overwrite \
         bash ./scripts/costexport_subscription.sh
 done < subscriptions.csv
+
+echo "エクスポート設定のエクスポートが完了しました。"
+
