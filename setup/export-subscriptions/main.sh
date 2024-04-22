@@ -38,5 +38,5 @@ do
         bash ./scripts/costexport_subscription.sh
 done < subscriptions.csv
 
-echo "エクスポート設定のエクスポートが完了しました。"
+echo "エクスポート設定が完了しました。"
 
