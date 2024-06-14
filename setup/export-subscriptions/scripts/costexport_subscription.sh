@@ -12,6 +12,7 @@ storageId=$STORAGE_ID
 containerName=$CONTAINER_NAME
 check_execute_month=$CHECK_EXECUTE_MONTH
 check_execute_overwrite=$CHECK_EXECUTE_OVERWRITE
+target_datetime=$TARGET_DATETIME
 
 ##############################################################
 # 定数
@@ -21,7 +22,6 @@ baseUrl=https://management.azure.com
 # 変数
 exportName_daily=${subscriptionId}_daily
 targetURL_daily=${baseUrl}/subscriptions/${subscriptionId}/providers/Microsoft.CostManagement/exports/${exportName_daily}?api-version=2023-04-01-preview
-current=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
 
 body_daily=$(printf '{
     "properties": {
@@ -56,7 +56,7 @@ body_daily=$(printf '{
         "type": "systemAssigned"
     },
     "location": "global"
-}' $containerName $storageId $current)
+}' $containerName $storageId $target_datetime)
 
 exportName_monthly=${subscriptionId}_monthly
 targetURL_monthly=${baseUrl}/subscriptions/${subscriptionId}/providers/Microsoft.CostManagement/exports/${exportName_monthly}?api-version=2023-04-01-preview
@@ -94,7 +94,7 @@ body_monthly=$(printf '{
         "type": "systemAssigned"
     },
     "location": "global"
-}' $containerName $storageId $current)
+}' $containerName $storageId $target_datetime)
 
 ##############################################################
 
